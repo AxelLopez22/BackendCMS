@@ -16,7 +16,8 @@ namespace CMSPrueba.Models
         {
         }
 
-        public virtual DbSet<Post> Posts { get; set; } = null!;
+        public virtual DbSet<Post> Post { get; set; } = null!;
+        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,6 +44,26 @@ namespace CMSPrueba.Models
                 entity.Property(e => e.Titulo)
                     .HasMaxLength(256)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.IdUser);
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("nombre");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
             });
 
             OnModelCreatingPartial(modelBuilder);
