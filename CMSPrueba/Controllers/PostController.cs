@@ -1,6 +1,7 @@
 ﻿using CMSPrueba.Models;
 using CMSPrueba.Models.Request;
 using CMSPrueba.Models.Respuesta;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace CMSPrueba.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PostController : ControllerBase
     {
         public readonly PruebaContext _pruebaContext;
@@ -18,7 +20,7 @@ namespace CMSPrueba.Controllers
             _pruebaContext = pruebaContext;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id?}")]
         public async Task<IActionResult> GetPost(int Id)
         {
             Respuesta res = new Respuesta();
